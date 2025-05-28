@@ -49,10 +49,6 @@ export default function TopNav() {
             <NavLink key={link.label} href={link.href} label={link.label} />
           );
         })}
-
-        {/* <NavLink href="/matches" label="Matches" />
-        <NavLink href="/lists" label="Lists" />
-        <NavLink href="/messages" label="Messages" /> */}
       </NavbarContent>
       <NavbarContent justify="end">
         <Button
