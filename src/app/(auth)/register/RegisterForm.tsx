@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@heroui/input";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
+import { registerUser } from "@/app/actions/authActions";
 
 export default function RegisterForm() {
   const {
@@ -17,8 +18,9 @@ export default function RegisterForm() {
     mode: "onTouched",
   });
 
-  const onSubmit = (data: RegisterSchema) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterSchema) => {
+    const result = await registerUser(data);
+    console.log(result);
   };
 
   return (
