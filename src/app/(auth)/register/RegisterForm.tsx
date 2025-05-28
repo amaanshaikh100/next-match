@@ -1,24 +1,23 @@
 "use client";
 
-import { Card, CardBody, CardHeader } from "@heroui/card";
-import { Input } from "@heroui/input";
-import { Button } from "@heroui/button";
-import { GiPadlock } from "react-icons/gi";
-import { useForm } from "react-hook-form";
-import { loginSchema, LoginSchema } from "@/lib/schemas/loginSchema";
+import { RegisterSchema, registerSchema } from "@/lib/schemas/registerSchema";
+import { Card, CardHeader, CardBody, Button } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@heroui/input";
+import { useForm } from "react-hook-form";
+import { GiPadlock } from "react-icons/gi";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
     mode: "onTouched",
   });
 
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = (data: RegisterSchema) => {
     console.log(data);
   };
 
@@ -28,10 +27,10 @@ export default function LoginForm() {
         <div className="flex flex-col gap-2 items-center text-secondary">
           <div className="flex flex-row items-center gap-3">
             <GiPadlock size={30} />
-            <h1 className="text-3xl font-semibold">Login</h1>
+            <h1 className="text-3xl font-semibold">Register</h1>
           </div>
 
-          <p className="text-neutral-500">Welcome back to NextMatch</p>
+          <p className="text-neutral-500">Welcome to NextMatch</p>
         </div>
       </CardHeader>
 
@@ -40,12 +39,21 @@ export default function LoginForm() {
           <div className="space-y-4">
             <Input
               defaultValue=""
+              label="Name"
+              variant="bordered"
+              // {...register("email", { required: "Email is required" })}
+              {...register("name")}
+              isInvalid={!!errors.name}
+              errorMessage={errors.name?.message}
+            />
+            <Input
+              defaultValue=""
               label="Email"
               variant="bordered"
               // {...register("email", { required: "Email is required" })}
               {...register("email")}
               isInvalid={!!errors.email}
-              errorMessage={errors.email?.message as string}
+              errorMessage={errors.email?.message}
             />
             <Input
               defaultValue=""
@@ -55,7 +63,7 @@ export default function LoginForm() {
               // {...register("password", { required: "Password is required" })}
               {...register("password")}
               isInvalid={!!errors.password}
-              errorMessage={errors.password?.message as string}
+              errorMessage={errors.password?.message}
             />
 
             <Button
@@ -64,7 +72,7 @@ export default function LoginForm() {
               color="secondary"
               type="submit"
             >
-              Login
+              Register
             </Button>
           </div>
         </form>
