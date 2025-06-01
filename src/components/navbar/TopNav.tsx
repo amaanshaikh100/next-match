@@ -3,6 +3,8 @@ import { Button } from "@heroui/button";
 import Link from "next/link";
 import { GiMatchTip } from "react-icons/gi";
 import NavLink from "./NavLink";
+import { auth } from "@/auth";
+import UserMenu from "./UserMenu";
 
 type Props = Array<{ href: string; label: string }>;
 
@@ -21,7 +23,9 @@ const navLinks: Props = [
   },
 ];
 
-export default function TopNav() {
+export default async function TopNav() {
+  const session = await auth();
+
   return (
     <Navbar
       maxWidth="xl"
@@ -51,23 +55,29 @@ export default function TopNav() {
         })}
       </NavbarContent>
       <NavbarContent justify="end">
-        <Button
-          as={Link}
-          href="/login"
-          variant="bordered"
-          className="text-white"
-        >
-          Login
-        </Button>
+        {session?.user ? (
+          <UserMenu user={session.user} />
+        ) : (
+          <>
+            <Button
+              as={Link}
+              href="/login"
+              variant="bordered"
+              className="text-white"
+            >
+              Login
+            </Button>
 
-        <Button
-          as={Link}
-          href="/register"
-          variant="bordered"
-          className="text-white"
-        >
-          Register
-        </Button>
+            <Button
+              as={Link}
+              href="/register"
+              variant="bordered"
+              className="text-white"
+            >
+              Register
+            </Button>
+          </>
+        )}
       </NavbarContent>
     </Navbar>
   );
