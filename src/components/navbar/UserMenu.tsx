@@ -26,7 +26,7 @@ export default function UserMenu({ user }: Props) {
           className="transition-transform"
           color="secondary"
           name={user?.name || "user avatar"}
-          src={user?.image || "/image/user.png"}
+          src={user?.image || "/images/user.png"}
         />
       </DropdownTrigger>
 
