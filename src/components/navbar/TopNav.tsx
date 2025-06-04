@@ -10,7 +10,7 @@ type Props = Array<{ href: string; label: string }>;
 
 const navLinks: Props = [
   {
-    href: "/matches",
+    href: "/members",
     label: "Matches",
   },
   {
