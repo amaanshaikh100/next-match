@@ -7,6 +7,7 @@ import { Input } from "@heroui/input";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
 import { registerUser } from "@/app/actions/authActions";
+import { handleFormServerError } from "@/lib/utils";
 
 export default function RegisterForm() {
   const {
@@ -25,18 +26,7 @@ export default function RegisterForm() {
     if (result.status === "success") {
       console.log("user registered successfully.");
     } else {
-      if (Array.isArray(result.error)) {
-        result.error.forEach((e) => {
-          const fieldName = e.path.join(".") as "email" | "name" | "password";
-          setError(fieldName, {
-            message: e.message,
-          });
-        });
-      } else {
-        setError("root.serverError", {
-          message: result.error,
-        });
-      }
+      handleFormServerError(result, setError);
     }
   };
 
