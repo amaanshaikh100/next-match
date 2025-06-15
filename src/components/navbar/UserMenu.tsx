@@ -9,14 +9,13 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@heroui/react";
-import { Session } from "next-auth";
 import Link from "next/link";
 
 type Props = {
-  user: Session["user"];
+  userInfo: { name: string | null; image: string | null } | null;
 };
 
-export default function UserMenu({ user }: Props) {
+export default function UserMenu({ userInfo }: Props) {
   return (
     <Dropdown placement="bottom-end">
       <DropdownTrigger>
@@ -25,8 +24,8 @@ export default function UserMenu({ user }: Props) {
           as="button"
           className="transition-transform"
           color="secondary"
-          name={user?.name || "user avatar"}
-          src={user?.image || "/images/user.png"}
+          name={userInfo?.name || "user avatar"}
+          src={userInfo?.image || "/images/user.png"}
         />
       </DropdownTrigger>
 
@@ -39,7 +38,7 @@ export default function UserMenu({ user }: Props) {
             aria-label="username"
             key="signIn"
           >
-            Signed in as {user?.name}
+            Signed in as {userInfo?.name}
           </DropdownItem>
         </DropdownSection>
 
